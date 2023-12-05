@@ -1,16 +1,18 @@
 package com.example.demo.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -31,24 +33,26 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public Person getOnePerson(@RequestParam(value = "id") int id) {
-      return null;
+    public Optional<Person> getOnePerson(@PathVariable("id") Long id) {
+      return personService.getOnePerson(id);
     }
 
     @PostMapping
-    public ResponseEntity<String> postPerson(){
-      return ResponseEntity.status(HttpStatus.CREATED).body("HTTP Status will be CREATED (CODE 201)\n");
+    public ResponseEntity<String> postPerson(@RequestBody Person person){
+      personService.addNewPerson(person);
+      return ResponseEntity.status(HttpStatus.CREATED).body("CODE 201\n");
     }
 
-    @PutMapping
-    public ResponseEntity<String> putPerson(){
-
-      return ResponseEntity.status(HttpStatus.OK).body("HTTP Status will be OK (CODE 200)\n");
+    @PutMapping("/{id}")
+    public ResponseEntity<String> putPerson(@PathVariable("id") Long id, @RequestBody Person person){
+      personService.updatePerson(id, person);
+      return ResponseEntity.status(HttpStatus.OK).body("CODE 200\n");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> DeletePerson(){
-      return ResponseEntity.status(HttpStatus.OK).body("HTTP Status will be OK (CODE 200)\n");
+    public ResponseEntity<String> DeletePerson(@PathVariable("id") Long id){
+      personService.deletePerson(id);
+      return ResponseEntity.status(HttpStatus.OK).body("CODE 200\n");
     }
     
 }

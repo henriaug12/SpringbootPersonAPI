@@ -25,14 +25,14 @@ public class Person {
 
     private Integer age;
 
-    private String sex;
+    private String email;
 
     public Person(){}
 
-    public Person (String name, Integer age, String sex){
+    public Person (String name, Integer age, String email){
         this.name = name;
         this.age = age;
-        this.sex = sex;
+        this.email = email;
     }
 
     public Long getId(){
@@ -47,7 +47,7 @@ public class Person {
         return age;
     }
 
-    public String getSex(){
-        return sex;
+    public String getEmail(){
+        return email;
     }
 }
