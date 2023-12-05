@@ -1,5 +1,6 @@
 package com.example.demo.Person;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,9 +49,9 @@ public class PersonController {
     public ResponseEntity<String> putPerson(
         @PathVariable("id") Long id,
         @RequestParam(required = false) String name,
-        @RequestParam(required = false) Integer age,
+        @RequestParam(required = false) LocalDate dob,
         @RequestParam(required = false) String email){
-      personService.updatePerson(id, name, age, email);
+      personService.updatePerson(id, name, dob, email);
       return ResponseEntity.status(HttpStatus.OK).body("CODE 200\n");
     }
 

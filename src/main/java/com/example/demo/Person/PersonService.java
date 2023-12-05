@@ -1,5 +1,6 @@
 package com.example.demo.Person;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +38,7 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    public void updatePerson(Long id, String name, Integer age, String email){
+    public void updatePerson(Long id, String name, LocalDate dob, String email){
         Person personToUpdate = personRepository.findById(id)
             .orElseThrow(() -> new IllegalStateException("Person with id " + id + " doesn't exist"));
         if(name != null &&
@@ -54,9 +55,8 @@ public class PersonService {
                 personToUpdate.setEmail(email);
         }
 
-        if(age != null &&
-            age > 0){
-                personToUpdate.setAge(age);
+        if(dob != null){
+                personToUpdate.setDob(dob);
         }
 
         personRepository.save(personToUpdate);

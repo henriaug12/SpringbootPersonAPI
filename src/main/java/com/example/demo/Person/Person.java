@@ -1,5 +1,7 @@
 package com.example.demo.Person;
 
+import java.time.LocalDate;
+import java.time.Period;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,15 +25,15 @@ public class Person {
 
     private String name;
 
-    private Integer age;
+    private LocalDate dob;
 
     private String email;
 
     public Person(){}
 
-    public Person (String name, Integer age, String email){
+    public Person (String name, LocalDate dob, String email){
         this.name = name;
-        this.age = age;
+        this.dob = dob;
         this.email = email;
     }
 
@@ -44,7 +46,7 @@ public class Person {
     }
 
     public Integer getAge(){
-        return age;
+        return Period.between(this.dob, LocalDate.now()).getYears();
     }
 
     public String getEmail(){
@@ -55,8 +57,8 @@ public class Person {
         this.name = name;
     }
 
-    public void setAge(Integer age){
-        this.age = age;
+    public void setDob(LocalDate dob){
+        this.dob = dob;
     }
 
     public void setEmail(String email){
