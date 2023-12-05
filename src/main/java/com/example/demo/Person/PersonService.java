@@ -37,9 +37,29 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    public void updatePerson(Long id, Person person){
-        //////////////////////////////////////////////////////////////
-        personRepository.save(person);
+    public void updatePerson(Long id, String name, Integer age, String email){
+        Person personToUpdate = personRepository.findById(id)
+            .orElseThrow(() -> new IllegalStateException("Person with id " + id + " doesn't exist"));
+        if(name != null &&
+            name.length() > 0){
+                personToUpdate.setName(name);
+        }
+        
+        if(email != null &&
+            email.length() > 0){
+                Optional<Person> personOptional = personRepository.findPersonByEmail(email);
+                if(personOptional.isPresent()){
+                    throw new IllegalStateException("Email taken");
+                }
+                personToUpdate.setEmail(email);
+        }
+
+        if(age != null &&
+            age > 0){
+                personToUpdate.setAge(age);
+        }
+
+        personRepository.save(personToUpdate);
     }
 
     public void deletePerson(Long id){
